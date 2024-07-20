@@ -17,11 +17,11 @@ admin.initializeApp({
 });
 
 app.post('/sendNotification', async (req, res) => {
-  const { token, message } = req.body;
+  const { token, title, message } = req.body;
 
   const payload = {
     notification: {
-      title: 'New Job Application',
+      title: title,
       body: message,
     },
   };
