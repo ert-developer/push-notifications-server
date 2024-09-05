@@ -20,6 +20,7 @@ app.post('/sendNotification', async (req, res) => {
   const { token, title, message } = req.body;
 
   const payload = {
+    token: token,
     notification: {
       title: title,
       body: message,
@@ -27,7 +28,7 @@ app.post('/sendNotification', async (req, res) => {
   };
 
   try {
-    await admin.messaging().sendToDevice(token, payload);
+    await admin.messaging().send(payload);
     res.status(200).send('Notification sent successfully');
   } catch (error) {
     console.error('Error sending notification:', error);
