@@ -2,14 +2,14 @@ const express = require('express');
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const cron = require('node-cron');
+const axios = require('axios');
 
-// Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
 
-// Parse service account key from environment variable
 const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 admin.initializeApp({
@@ -33,6 +33,16 @@ app.post('/sendNotification', async (req, res) => {
   } catch (error) {
     console.error('Error sending notification:', error);
     res.status(500).send('Error sending notification');
+  }
+});
+
+
+cron.schedule('* * * * *', async () => {
+  try {
+    const response = await axios.get('https://zaaprazorpayserver.onrender.com');
+    console.log('Request to zaaprazorpayserver successful:', response.data);
+  } catch (error) {
+    console.error('Error making request to zaaprazorpayserver:', error);
   }
 });
 
