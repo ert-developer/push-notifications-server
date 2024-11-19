@@ -37,14 +37,22 @@ app.post('/sendNotification', async (req, res) => {
 });
 
 
-cron.schedule('* * * * *', async () => {
+// cron.schedule('* * * * *', async () => {
+//   try {
+//     const response = await axios.get('https://zaaprazorpayserver.onrender.com');
+//     console.log('Request to zaaprazorpayserver successful:', response.data);
+//   } catch (error) {
+//     console.error('Error making request to zaaprazorpayserver:', error);
+//   }
+// });
+setInterval(async () => {
   try {
     const response = await axios.get('https://zaaprazorpayserver.onrender.com');
-    console.log('Request to zaaprazorpayserver successful:', response.data);
+    console.log('Request to push notifications server successful:', response.data);
   } catch (error) {
-    console.error('Error making request to zaaprazorpayserver:', error);
+    console.error('Error making request to push notifications server:', error);
   }
-});
+}, 45000);  // 45000ms = 45 seconds
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
