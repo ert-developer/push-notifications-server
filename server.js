@@ -50,9 +50,18 @@ setInterval(async () => {
     const response = await axios.get('https://zaaprazorpayserver.onrender.com');
     console.log('Request to push notifications server successful:', response.data);
   } catch (error) {
-    console.error('Error making request to push notifications server:', error);
+    console.error('Error making request to razorpay server:', error);
   }
 }, 45000);  // 45000ms = 45 seconds
+
+setInterval(async () => {
+  try {
+    const response = await axios.get('https://zaap-mail-server-1.onrender.com');
+    console.log('Request to push notifications server successful:', response.data);
+  } catch (error) {
+    console.error('Error making request to Mail server:', error);
+  }
+}, 45000);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
